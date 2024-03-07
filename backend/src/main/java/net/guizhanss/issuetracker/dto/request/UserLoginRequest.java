@@ -1,15 +1,13 @@
-package net.guizhanss.issuetracker.dto;
+package net.guizhanss.issuetracker.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-
-import java.util.UUID;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
-public class UserDto {
-    private UUID id;
+public class UserLoginRequest {
     private String username;
-    private String email;
     private String password;
 }

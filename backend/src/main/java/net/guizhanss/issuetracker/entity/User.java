@@ -1,46 +1,64 @@
 package net.guizhanss.issuetracker.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.PreUpdate;
-import jakarta.persistence.Table;
+import com.baomidou.mybatisplus.annotation.EnumValue;
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.guizhanss.issuetracker.entity.enums.Role;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-import java.time.LocalDateTime;
-import java.util.UUID;
+import java.sql.Timestamp;
+import java.util.Collection;
+import java.util.List;
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "users")
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
-
-    @Column(nullable = false)
+@TableName("users")
+public class User implements UserDetails {
+    @TableId(type = IdType.ASSIGN_ID)
+    private Long id;
     private String username;
-
-    @Column(nullable = false)
     private String email;
-
-    @Column(nullable = false)
     private String password;
+    @EnumValue
+    private Role role;
+    @TableField(value = "created_at", fill = FieldFill.INSERT)
+    private Timestamp createdAt;
+    @TableField(value = "updated_at", fill = FieldFill.UPDATE)
+    private Timestamp updatedAt;
 
-    @Column(name = "created_at")
-    LocalDateTime createdAt;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(role.name()));
+    }
 
-    @Column(name = "updated_at")
-    LocalDateTime updatedAt;
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
 
-    @PreUpdate
-    protected void onUpdate() {
-        updatedAt = LocalDateTime.now();
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }
