@@ -1,9 +1,10 @@
 package net.guizhanss.issuetracker.exception;
 
+import net.guizhanss.issuetracker.error.ResponseError;
 import org.springframework.http.HttpStatus;
 
 public class UserNotFoundException extends BaseException {
-    public UserNotFoundException(String message) {
-        super(HttpStatus.NOT_FOUND, 1000, message);
+    public UserNotFoundException() {
+        super(HttpStatus.NOT_FOUND, ResponseError.USER_NOT_FOUND);
     }
 }

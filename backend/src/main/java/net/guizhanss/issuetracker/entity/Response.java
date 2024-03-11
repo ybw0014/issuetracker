@@ -20,6 +20,10 @@ public class Response<T> {
         );
     }
 
+    public static Response success(Object data) {
+        return success("Success", data);
+    }
+
     public static Response error(int code, String message) {
         return new Response(
             code,

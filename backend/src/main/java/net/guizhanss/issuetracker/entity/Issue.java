@@ -8,6 +8,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Stores information about an GitHub issue.
+ */
 @Data
 @Builder
 @NoArgsConstructor

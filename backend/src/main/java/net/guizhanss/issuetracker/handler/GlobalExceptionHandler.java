@@ -3,8 +3,6 @@ package net.guizhanss.issuetracker.handler;
 import jakarta.servlet.http.HttpServletRequest;
 import net.guizhanss.issuetracker.entity.Response;
 import net.guizhanss.issuetracker.exception.BaseException;
-import net.guizhanss.issuetracker.exception.UserExistException;
-import net.guizhanss.issuetracker.exception.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -17,7 +15,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({BaseException.class})
     public ResponseEntity<Response> handleUserNotFound(HttpServletRequest request, Exception ex) {
         BaseException exception = (BaseException) ex;
-        return new ResponseEntity<>(Response.error(exception.getCode(), exception.getMessage()), exception.getStatus());
+        return exception.toResponseEntity();
     }
 
     @ExceptionHandler({HttpMessageNotReadableException.class})

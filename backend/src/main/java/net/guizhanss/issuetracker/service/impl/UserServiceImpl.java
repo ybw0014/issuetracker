@@ -14,7 +14,6 @@ import net.guizhanss.issuetracker.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -34,7 +33,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             .select(User::getUsername)
             .eq(User::getUsername, request.getUsername());
         if (getOne(wrapper) != null) {
-            throw new UserExistException("User with username '" + request.getUsername() + "' already exists");
+            throw new UserExistException();
         }
         User user = User.builder()
             .username(request.getUsername())

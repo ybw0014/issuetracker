@@ -12,6 +12,7 @@ public class CustomMetaObjectHandler implements MetaObjectHandler {
     @Override
     public void insertFill(MetaObject metaObject) {
         this.setFieldValByName("createdAt", Timestamp.valueOf(LocalDateTime.now()), metaObject);
+        this.setFieldValByName("updatedAt", Timestamp.valueOf(LocalDateTime.now()), metaObject);
     }
 
     @Override

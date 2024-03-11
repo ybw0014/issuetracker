@@ -1,6 +1,5 @@
 package net.guizhanss.issuetracker.controller;
 
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import net.guizhanss.issuetracker.dto.request.UserCreateRequest;
 import net.guizhanss.issuetracker.dto.request.UserLoginRequest;
