@@ -10,5 +10,5 @@ public interface UserService extends IService<User> {
 
     User login(UserLoginRequest request);
 
-    User findByUsername(String username);
+    User getByUsername(String username);
 }

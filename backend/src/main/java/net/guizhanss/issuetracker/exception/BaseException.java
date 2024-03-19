@@ -18,9 +18,7 @@ public abstract class BaseException extends RuntimeException {
     }
 
     protected BaseException(HttpStatus status, ResponseError responseError) {
-        super(responseError.getMessage());
-        this.status = status;
-        this.code = responseError.getCode();
+        this(status, responseError.getCode(), responseError.getMessage());
     }
 
     public Response toResponse() {

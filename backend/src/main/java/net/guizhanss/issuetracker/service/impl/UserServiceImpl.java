@@ -59,11 +59,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             // use our own exception
             throw new InvalidCredentialsException();
         }
-        return findByUsername(request.getUsername());
+        return getByUsername(request.getUsername());
     }
 
     @Override
-    public User findByUsername(String username) {
+    public User getByUsername(String username) {
         return getOne(new LambdaQueryWrapper<User>()
             .eq(User::getUsername, username));
     }

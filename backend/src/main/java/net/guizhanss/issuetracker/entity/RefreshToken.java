@@ -17,14 +17,15 @@ import java.sql.Timestamp;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName("tokens")
-public class Token {
+@TableName("refresh_tokens")
+public class RefreshToken {
     @TableId(type = IdType.AUTO)
     private Long id;
     private String token;
     @EnumValue
+    @TableField(value = "type")
     @Builder.Default
-    private TokenType type = TokenType.BEARER;
+    private TokenType tokenType = TokenType.BEARER;
     @TableField(value = "user_id")
     private Long userId;
     @TableField(value = "created_at")

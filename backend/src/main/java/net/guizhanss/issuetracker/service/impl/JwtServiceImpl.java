@@ -23,12 +23,12 @@ public class JwtServiceImpl implements JwtService {
 
     @Override
     public String generateToken(UserDetails user) {
-        return generateToken(user, Map.of());
+        return generateToken(user, Map.of(), jwtConfig.getExpiration());
     }
 
     @Override
     public String generateRefreshToken(UserDetails user) {
-        return null;
+        return generateToken(user, Map.of(), jwtConfig.getRefreshExpiration());
     }
 
     @Override
@@ -78,13 +78,13 @@ public class JwtServiceImpl implements JwtService {
         return extractExpiration(token).before(new Date());
     }
 
-    private String generateToken(UserDetails user, Map<String, Object> claims) {
+    private String generateToken(UserDetails user, Map<String, Object> claims, long expiration) {
         return Jwts.builder()
             .claims(claims)
             .subject(user.getUsername())
             .issuedAt(new Date(System.currentTimeMillis()))
             .notBefore(new Date(System.currentTimeMillis()))
-            .expiration(new Date(System.currentTimeMillis() + jwtConfig.getExpiration()))
+            .expiration(new Date(System.currentTimeMillis() + expiration))
             .signWith(getKey())
             .compact();
     }

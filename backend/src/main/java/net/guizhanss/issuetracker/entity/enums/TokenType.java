@@ -1,5 +1,14 @@
 package net.guizhanss.issuetracker.entity.enums;
 
+import com.baomidou.mybatisplus.annotation.EnumValue;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
+@Getter
+@RequiredArgsConstructor
 public enum TokenType {
-    BEARER
+    BEARER("Bearer");
+
+    @EnumValue
+    private final String value;
 }
